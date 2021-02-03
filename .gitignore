@@ -1,0 +1,6 @@
+*.pyc
+.vscode
+.idea
+.env
+.flaskenv
+.db
