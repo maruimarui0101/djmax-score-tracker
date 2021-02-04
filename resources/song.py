@@ -5,7 +5,7 @@ from flask_restful import reqparse
 class Song(Resource):
     parser = reqparse.RequestParser()
 
-    parser.add_argument('title', type=str, required=True, help='Title of the song')
+    # parser.add_argument('title', type=str, required=True, help='Title of the song')
     parser.add_argument('artist', type=str, required=True, help='Artist of the song')
     parser.add_argument('pack', type=str, required=True, help='Pack name')
 
@@ -19,10 +19,11 @@ class Song(Resource):
 
     def post(self, name):
         data = Song.parser.parse_args()
-        song = SongModel(**data)
+        song = SongModel(name, **data)
 
         try:
             song.save_to_db()
+            return {'message': 'Song successfully added'}, 200
         except:
             return {'message': 'Error adding song to database'}, 404
 
